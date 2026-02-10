@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Said Yes! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(255, 182, 193, 0.3) 25%, 
+                transparent 50%, 
+                rgba(255, 105, 180, 0.3) 75%, 
+                transparent 100%);
+            animation: wave 15s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Floating hearts */
+        .heart-float {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 8s infinite ease-in;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Lily flowers */
+        .lily {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.4;
+            animation: spin 25s infinite linear;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3),
+                        0 0 50px rgba(255, 105, 180, 0.5);
+            max-width: 900px;
+            width: 100%;
+            z-index: 10;
+            animation: popIn 1s ease-out;
+            border: 3px solid rgba(255, 105, 180, 0.3);
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 52px;
+            background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: shimmer 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+            font-weight: bold;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .love-message {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .love-message p {
+            margin-bottom: 15px;
+        }
+
+        .photo {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(255, 105, 180, 0.5);
+            object-fit: cover;
+            animation: fadeIn 2s ease-in;
+            border: 5px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .hearts {
+            font-size: 40px;
+            margin: 30px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff1493;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 38px;
+                margin-bottom: 25px;
+            }
+
+            .love-message {
+                font-size: 16px;
+            }
+
+            .photo {
+                height: 300px;
+                max-width: 100%;
+            }
+
+            .hearts {
+                font-size: 35px;
+                margin: 25px 0;
+            }
+
+            .lily {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .love-message {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .photo {
+                height: 250px;
+                border-radius: 15px;
+            }
+
+            .hearts {
+                font-size: 30px;
+                margin: 20px 0;
+            }
+
+            .lily {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts -->
+    <div class="heart-float" style="left: 10%; animation-delay: 0s;">💖</div>
+    <div class="heart-float" style="left: 30%; animation-delay: 2s;">💕</div>
+    <div class="heart-float" style="left: 50%; animation-delay: 4s;">💗</div>
+    <div class="heart-float" style="left: 70%; animation-delay: 1s;">💖</div>
+    <div class="heart-float" style="left: 90%; animation-delay: 3s;">💕</div>
+
+    <!-- Lily flowers -->
+    <div class="lily" style="top: 50%; left: 15%;">🌸</div>
+    <div class="lily" style="top: 50%; right: 15%; animation-delay: 5s;">🌸</div>
+    <div class="lily" style="top: 20%; left: 50%; animation-delay: 10s;">🌸</div>
+    <div class="lily" style="bottom: 20%; left: 50%; animation-delay: 15s;">🌸</div>
+
+    <div class="container">
+        <h1>Yay! You Said Yes! 🎉</h1>
+        
+        <div class="hearts">💕 💖 💗 💕</div>
+        
+        <div class="love-message">
+            <p><strong>To the most amazing person in my life,</strong></p>
+            <p>From the moment I met you, you've filled my days with joy and my heart with love. 
+            Your smile brightens my darkest days, and your laughter is my favorite melody.</p>
+            <p>Every moment with you is a treasure, and I can't wait to create more beautiful memories together. 
+            You make my world complete, and I'm so lucky to have you.</p>
+            <p><strong>Happy Valentine's Day, my love! 💖</strong></p>
+        </div>
+
+        <!-- Replace the src with your actual photo URL or file name -->
+        <img src="me.png" alt="Our Special Moment" class="photo">
+        
+        <div class="hearts">💕 💖 💗 💕</div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.textContent = ['💖', '💕', '💗', '💝'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }, 1500);
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff1493', '#ff69b4', '#ffc0cb', '#ff6b9d', '#c71585'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 50);
+            }
+        }
+
+        // Trigger confetti on load
+        window.addEventListener('load', createConfetti);
+    </script>
+</body>
+</html>

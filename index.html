@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(255, 182, 193, 0.3) 25%, 
+                transparent 50%, 
+                rgba(255, 105, 180, 0.3) 75%, 
+                transparent 100%);
+            animation: wave 15s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Floating hearts */
+        .heart-float {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 8s infinite ease-in;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Lily flowers */
+        .lily {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.4;
+            animation: spin 25s infinite linear;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3),
+                        0 0 50px rgba(255, 105, 180, 0.5);
+            z-index: 10;
+            position: relative;
+            animation: slideIn 1s ease-out;
+            border: 3px solid rgba(255, 105, 180, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        h1 {
+            font-size: 42px;
+            background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 50px;
+            animation: shimmer 3s ease-in-out infinite;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; }
+        }
+
+        .button-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
+        button {
+            padding: 20px 45px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ff1493 100%);
+            background-size: 200% 200%;
+            color: white;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 3;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 0 10px 40px rgba(255, 20, 147, 0.6);
+            }
+            50% { 
+                box-shadow: 0 15px 60px rgba(255, 20, 147, 0.8);
+            }
+        }
+
+        #yesBtn:hover {
+            transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
+            animation: none;
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+            z-index: 2;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease-out;
+        }
+
+        /* Decorative elements */
+        .deco-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: beat 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+        }
+
+        .top-left { top: -20px; left: -20px; animation-delay: 0s; }
+        .top-right { top: -20px; right: -20px; animation-delay: 0.5s; }
+        .bottom-left { bottom: -20px; left: -20px; animation-delay: 1s; }
+        .bottom-right { bottom: -20px; right: -20px; animation-delay: 1.5s; }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            button {
+                padding: 18px 35px;
+                font-size: 20px;
+            }
+
+            .button-container {
+                height: 220px;
+            }
+
+            .lily {
+                font-size: 40px;
+            }
+
+            .deco-heart {
+                font-size: 25px;
+            }
+
+            .top-left { top: -15px; left: -15px; }
+            .top-right { top: -15px; right: -15px; }
+            .bottom-left { bottom: -15px; left: -15px; }
+            .bottom-right { bottom: -15px; right: -15px; }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+                margin-bottom: 30px;
+                letter-spacing: 1px;
+            }
+
+            button {
+                padding: 15px 30px;
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+
+            .button-container {
+                height: 200px;
+            }
+
+            .lily {
+                font-size: 30px;
+            }
+
+            .deco-heart {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts -->
+    <div class="heart-float" style="left: 10%; animation-delay: 0s;">💖</div>
+    <div class="heart-float" style="left: 25%; animation-delay: 2s;">💕</div>
+    <div class="heart-float" style="left: 40%; animation-delay: 4s;">💗</div>
+    <div class="heart-float" style="left: 55%; animation-delay: 1s;">💖</div>
+    <div class="heart-float" style="left: 70%; animation-delay: 3s;">💕</div>
+    <div class="heart-float" style="left: 85%; animation-delay: 5s;">💗</div>
+
+    <!-- Lily flowers spinning -->
+    <div class="lily" style="top: 50%; left: 20%;">🌸</div>
+    <div class="lily" style="top: 50%; right: 20%; animation-delay: 5s;">🌸</div>
+    <div class="lily" style="top: 20%; left: 50%; animation-delay: 10s;">🌸</div>
+    <div class="lily" style="bottom: 20%; left: 50%; animation-delay: 15s;">🌸</div>
+
+    <div class="container">
+        <!-- Corner hearts -->
+        <div class="deco-heart top-left">💕</div>
+        <div class="deco-heart top-right">💖</div>
+        <div class="deco-heart bottom-left">💗</div>
+        <div class="deco-heart bottom-right">💕</div>
+
+        <h1>
+            Will you be my Valentine? 
+            <span class="sparkle">✨</span>
+        </h1>
+        
+        <div class="button-container">
+            <button id="yesBtn" onclick="window.location.href='yes.html'">Yes! 💖</button>
+            <button id="noBtn">No 😢</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const container = document.querySelector('.button-container');
+        let attempts = 0;
+        
+        function getDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        }
+        
+        function moveNoButton() {
+            attempts++;
+            
+            const containerRect = container.getBoundingClientRect();
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const yesBtnRect = yesBtn.getBoundingClientRect();
+            
+            let newX, newY;
+            let validPosition = false;
+            let maxAttempts = 50;
+            let attemptCount = 0;
+            
+            // Try to find a position that's far from Yes button
+            while (!validPosition && attemptCount < maxAttempts) {
+                // Random position within container
+                newX = Math.random() * (containerRect.width - noBtnRect.width);
+                newY = Math.random() * (containerRect.height - noBtnRect.height);
+                
+                // Calculate center points
+                const noCenterX = newX + noBtnRect.width / 2;
+                const noCenterY = newY + noBtnRect.height / 2;
+                const yesCenterX = yesBtnRect.width / 2 + (yesBtnRect.left - containerRect.left);
+                const yesCenterY = yesBtnRect.height / 2 + (yesBtnRect.top - containerRect.top);
+                
+                // Check distance from Yes button
+                const distance = getDistance(noCenterX, noCenterY, yesCenterX, yesCenterY);
+                
+                // Ensure minimum distance from Yes button
+                if (distance > 120) {
+                    validPosition = true;
+                }
+                
+                attemptCount++;
+            }
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+            noBtn.style.transform = 'translate(0, 0)';
+            
+            // Shrink the button with each attempt
+            if (attempts <= 6) {
+                const scale = Math.max(0.5, 1 - (attempts * 0.1));
+                noBtn.style.transform = `scale(${scale})`;
+            }
+            
+            // Add wobble effect
+            noBtn.style.animation = 'none';
+            setTimeout(() => {
+                noBtn.style.animation = '';
+            }, 10);
+        }
+        
+        // Desktop - Mouse hover detection at distance
+        container.addEventListener('mousemove', (e) => {
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const noCenterX = noBtnRect.left + noBtnRect.width / 2;
+            const noCenterY = noBtnRect.top + noBtnRect.height / 2;
+            
+            const distance = getDistance(e.clientX, e.clientY, noCenterX, noCenterY);
+            
+            // Move if cursor gets within 80px of the button
+            if (distance < 80) {
+                moveNoButton();
+            }
+        });
+        
+        // Mobile - Touch detection
+        let lastTouchMove = 0;
+        container.addEventListener('touchmove', (e) => {
+            const now = Date.now();
+            if (now - lastTouchMove < 100) return; // Throttle
+            lastTouchMove = now;
+            
+            const touch = e.touches[0];
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const noCenterX = noBtnRect.left + noBtnRect.width / 2;
+            const noCenterY = noBtnRect.top + noBtnRect.height / 2;
+            
+            const distance = getDistance(touch.clientX, touch.clientY, noCenterX, noCenterY);
+            
+            // Move if finger gets within 100px
+            if (distance < 100) {
+                moveNoButton();
+            }
+        });
+        
+        // Prevent click on No button
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            moveNoButton();
+        });
+        
+        // Mobile tap
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            moveNoButton();
+        });
+
+        // Create more floating hearts dynamically
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.textContent = ['💖', '💕', '💗'][Math.floor(Math.random() * 3)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }, 2000);
+    </script>
+</body>
+</html>
